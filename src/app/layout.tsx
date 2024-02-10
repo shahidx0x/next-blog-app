@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
-import { cn } from "@/lib/utils";
+import { cn, scrollToTop } from "@/lib/utils";
+import Navbar from "@/components/Navbar/Navbar";
+import { ThemeProvider } from "@/components/Providers/ThemeProvider";
+import { ArrowUpToLine } from "lucide-react";
+import ScrollToTop from "@/components/ScrollToTop/ScrollToTop";
+import Footer from "@/components/Footer/Footer";
 
 export const fontSans = FontSans({
   subsets: ["latin"],
@@ -20,14 +25,27 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={cn(
-          "min-h-screen bg-background font-sans antialiased",
-          fontSans.variable
-        )}
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        disableTransitionOnChange
       >
-        {children}
-      </body>
+        <body
+          className={cn(
+            "min-h-screen bg-background font-sans antialiased",
+            fontSans.variable
+          )}
+        >
+          <Navbar />
+          {children}
+          <div className="fixed bg-black text-white bottom-0 right-2 lg:bottom-5 lg:right-5 p-4 lg:p-2 lg:hover:bg-black lg:hover:text-white border-black border rounded-full">
+            <ScrollToTop />
+          </div>
+
+          <Footer />
+        </body>
+      </ThemeProvider>
     </html>
   );
 }
