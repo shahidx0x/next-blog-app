@@ -15,7 +15,7 @@ import BlogsCard from "../Cards/BlogsCard/BlogsCard";
 
 export default function Category() {
   return (
-    <div className="mt-[60rem] lg:mt-[12rem] relative">
+    <div className="mt-[60rem] md:mt-[90rem] lg:mt-[16rem] relative">
       <div className="flex gap-5 flex-col justify-center items-center">
         <h2 className="text-3xl lg:text-5xl font-bold">Browse By Category</h2>
         <p className="hidden lg:text-2xl font-bold">
@@ -24,47 +24,114 @@ export default function Category() {
       </div>
       <div className="flex justify-center">
         <div className=" mt-5 lg:mt-10">
-          <Tabs defaultValue="all" className={cn("w-full")}>
-            <TabsList className={cn("flex flex-wrap gap-2 bg-none ")}>
-              <TabsTrigger value="all">All(0)</TabsTrigger>
-              <TabsTrigger value="health">Health(0)</TabsTrigger>
-              <TabsTrigger value="lifestyle">LifeStyle(0)</TabsTrigger>
-              <TabsTrigger value="travel">Travel(0)</TabsTrigger>
-              <TabsTrigger value="technology">Technology(0)</TabsTrigger>
-              <TabsTrigger value="culture">Culture(0)</TabsTrigger>
-              <TabsTrigger value="religion">Religion(0)</TabsTrigger>
-              <TabsTrigger value="politics">Politics(0)</TabsTrigger>
-            </TabsList>
-            <TabsContent className={cn("mt-40 lg:mt-0")} value="all">
-              <div
-                className={cn(
-                  "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-11 gap-x-7.5  p-10"
-                )}
-              >
-                <BlogsCard />
-                <BlogsCard />
-                <BlogsCard />
-                <BlogsCard />
-                <BlogsCard />
+          <Tabs defaultValue="all" className={cn("")}>
+            <div className="flex justify-center">
+              <div className=" w-full md:w-[60%] lg:w-[80%]">
+                <TabsList className={cn("flex flex-wrap gap-2 bg-none h-full")}>
+                  <TabsTrigger
+                    className={cn(
+                      "bg-gradient-to-r from-black to-black bg-[length:0px_100px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 hover:bg-[length:100%_100px] group-hover:bg-[length:100%_100px] hover:text-white"
+                    )}
+                    value="all"
+                  >
+                    All(0)
+                  </TabsTrigger>
+                  <TabsTrigger
+                    className={cn(
+                      "bg-gradient-to-r from-black to-black bg-[length:0px_100px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 hover:bg-[length:100%_100px] group-hover:bg-[length:100%_100px] hover:text-white"
+                    )}
+                    value="health"
+                  >
+                    Health(0)
+                  </TabsTrigger>
+                  <TabsTrigger
+                    className={cn(
+                      "bg-gradient-to-r from-black to-black bg-[length:0px_100px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 hover:bg-[length:100%_100px] group-hover:bg-[length:100%_100px] hover:text-white"
+                    )}
+                    value="lifestyle"
+                  >
+                    LifeStyle(0)
+                  </TabsTrigger>
+                  <TabsTrigger
+                    className={cn(
+                      "bg-gradient-to-r from-black to-black bg-[length:0px_100px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 hover:bg-[length:100%_100px] group-hover:bg-[length:100%_100px] hover:text-white"
+                    )}
+                    value="travel"
+                  >
+                    Travel(0)
+                  </TabsTrigger>
+                  <TabsTrigger
+                    className={cn(
+                      "bg-gradient-to-r from-black to-black bg-[length:0px_100px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 hover:bg-[length:100%_100px] group-hover:bg-[length:100%_100px] hover:text-white"
+                    )}
+                    value="technology"
+                  >
+                    Technology(0)
+                  </TabsTrigger>
+                  <TabsTrigger
+                    className={cn(
+                      "bg-gradient-to-r from-black to-black bg-[length:0px_100px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 hover:bg-[length:100%_100px] group-hover:bg-[length:100%_100px] hover:text-white"
+                    )}
+                    value="culture"
+                  >
+                    Culture(0)
+                  </TabsTrigger>
+                  <TabsTrigger
+                    className={cn(
+                      "bg-gradient-to-r from-black to-black bg-[length:0px_100px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 hover:bg-[length:100%_100px] group-hover:bg-[length:100%_100px] hover:text-white"
+                    )}
+                    value="religion"
+                  >
+                    Religion(0)
+                  </TabsTrigger>
+                  <TabsTrigger
+                    className={cn(
+                      "bg-gradient-to-r from-black to-black bg-[length:0px_100px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 hover:bg-[length:100%_100px] group-hover:bg-[length:100%_100px] hover:text-white"
+                    )}
+                    value="politics"
+                  >
+                    Politics(0)
+                  </TabsTrigger>
+                </TabsList>
               </div>
-            </TabsContent>
-            <TabsContent className={cn("mt-40 lg:mt-0")} value="health">
-              <div
-                className={cn(
-                  "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-11 gap-x-7.5  p-10"
-                )}
+            </div>
+            <div className="flex justify-center">
+              <TabsContent className={cn("p-0 lg:p-10")} value="all">
+                <div
+                  className={cn(
+                    "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 p-0  lg:p-10"
+                  )}
+                >
+                  <BlogsCard />
+                  <BlogsCard />
+                  <BlogsCard />
+                  <BlogsCard />
+                  <BlogsCard />
+                </div>
+              </TabsContent>
+              <TabsContent
+                className={cn("mt-64  lg:mt-0 p-0 lg:p-10")}
+                value="health"
               >
-                <BlogsCard />
-                <BlogsCard />
-              </div>
-            </TabsContent>
+                <div
+                  className={cn(
+                    "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 p-0  lg:p-10"
+                  )}
+                >
+                  <BlogsCard />
+                  <BlogsCard />
+                </div>
+              </TabsContent>
+            </div>
           </Tabs>
         </div>
       </div>
       <div className="flex justify-center items-center">
         <Button
           variant={"outline"}
-          className={cn("py-6 px-10 hover:bg-black hover:text-white font-bold")}
+          className={cn(
+            "bg-gradient-to-r from-black to-black bg-[length:0px_100px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 hover:bg-[length:100%_100px] group-hover:bg-[length:100%_100px] hover:text-white"
+          )}
         >
           Browse All Post
         </Button>

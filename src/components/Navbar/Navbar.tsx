@@ -1,8 +1,6 @@
 "use client";
 import React from "react";
-import { Button } from "../ui/button";
 import Link from "next/link";
-import { NavigationMenuBlog } from "./NavigationMenu";
 import { NavItems } from "@/constant/constant";
 import { usePathname } from "next/navigation";
 import {
@@ -13,14 +11,16 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+
 import { Separator } from "../ui/separator";
+import SearchPost from "./Search/SearchPost";
 
 const Navbar = () => {
   const pathname = usePathname();
 
   return (
     <div>
-      <header className=" bg-gray-100/90 border backdrop-blur-md text-gray-800 fixed w-full z-50 top-0">
+      <header className=" bg-gray-100/90 border backdrop-blur-md text-gray-800 fixed w-full z-50 top-0 ">
         <div className="container flex justify-between h-16 mx-auto">
           <a
             rel="noopener noreferrer"
@@ -30,10 +30,10 @@ const Navbar = () => {
           >
             <h2 className="text-3xl font-bold font-mono">NB</h2>
           </a>
-          <ul className="items-stretch hidden space-x-3 lg:flex">
+          <ul className="hidden space-x-3 lg:flex justify-center items-center ">
             {NavItems.map((item, index) => (
               <>
-                <li className="flex">
+                <li className="flex justify-center items-center">
                   <Link
                     key={item.href}
                     href={item.href}
@@ -48,24 +48,27 @@ const Navbar = () => {
                 </li>
               </>
             ))}
+            <li className="cursor-pointer">
+              <SearchPost />
+            </li>
           </ul>
 
-          <div className="items-center flex-shrink-0 hidden lg:flex gap-5">
+          {/* <div className="items-center flex-shrink-0 hidden lg:flex gap-5">
             <Link
               href={"/login"}
               className="self-center px-8 py-3 font-semibold rounded border-2 text-gray-500"
             >
-              Sign in
+              Explore In
             </Link>
             <Link
               href={"/registration"}
               className="self-center px-8 py-3 font-semibold rounded bg-black text-gray-50"
             >
-              Sign up
+              Get Started
             </Link>
-          </div>
-
-          <div className="lg:hidden ">
+          </div> */}
+          <div className="lg:hidden flex justify-center items-center gap-3 ">
+            <SearchPost />
             <Sheet>
               <SheetTrigger asChild>
                 <button className="p-4 lg:hidden">

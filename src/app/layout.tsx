@@ -7,9 +7,10 @@ import { ThemeProvider } from "@/components/Providers/ThemeProvider";
 import { ArrowUpToLine } from "lucide-react";
 import ScrollToTop from "@/components/ScrollToTop/ScrollToTop";
 import Footer from "@/components/Footer/Footer";
+import NewsLatter from "@/components/NewsLatter/NewsLatter";
 
 export const fontSans = FontSans({
-  subsets: ["latin"],
+  subsets: ["cyrillic"],
   variable: "--font-sans",
 });
 
@@ -31,20 +32,20 @@ export default function RootLayout({
         enableSystem
         disableTransitionOnChange
       >
+        <Navbar />
         <body
           className={cn(
             "min-h-screen bg-background font-sans antialiased",
             fontSans.variable
           )}
         >
-          <Navbar />
           {children}
-          <div className="fixed bg-black text-white bottom-0 right-2 lg:bottom-5 lg:right-5 p-4 lg:p-2 lg:hover:bg-black lg:hover:text-white border-black border rounded-full">
-            <ScrollToTop />
-          </div>
-
-          <Footer />
         </body>
+        <div className="fixed bg-black text-white bottom-0 right-2 lg:bottom-5 lg:right-5 p-4 lg:p-2 lg:hover:bg-black lg:hover:text-white border-black border rounded-full">
+          <ScrollToTop />
+        </div>
+
+        <Footer />
       </ThemeProvider>
     </html>
   );
