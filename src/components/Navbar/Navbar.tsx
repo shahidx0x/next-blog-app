@@ -12,15 +12,26 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
 import { Separator } from "../ui/separator";
 import SearchPost from "./Search/SearchPost";
+import { cn } from "@/lib/utils";
 
 const Navbar = () => {
   const pathname = usePathname();
 
   return (
     <div>
-      <header className=" bg-gray-100/90 border backdrop-blur-md text-gray-800 fixed w-full z-50 top-0 ">
+      <header className=" bg-gray-100/90 backdrop-blur-md text-gray-800 fixed w-full z-50 top-0 ">
         <div className="container flex justify-between h-16 mx-auto">
           <a
             rel="noopener noreferrer"
@@ -31,9 +42,12 @@ const Navbar = () => {
             <h2 className="text-3xl font-bold font-mono">NB</h2>
           </a>
           <ul className="hidden space-x-3 lg:flex justify-center items-center ">
+            <li className="cursor-pointer ">
+              <SearchPost />
+            </li>
             {NavItems.map((item, index) => (
               <>
-                <li className="flex justify-center items-center">
+                <li className="flex justify-center items-center mt-2">
                   <Link
                     key={item.href}
                     href={item.href}
@@ -48,8 +62,26 @@ const Navbar = () => {
                 </li>
               </>
             ))}
-            <li className="cursor-pointer">
-              <SearchPost />
+
+            <li className="cursor-pointer ">
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+                  <Avatar>
+                    <AvatarImage src="https://github.com/shadcn.png" />
+                    <AvatarFallback>CN</AvatarFallback>
+                  </Avatar>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className={cn("mt-5")}>
+                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>Profile</DropdownMenuItem>
+                  <Link href={`/user/write-post`}>
+                    <DropdownMenuItem>Write Something</DropdownMenuItem>
+                  </Link>
+                  <DropdownMenuItem>Settigns</DropdownMenuItem>
+                  <DropdownMenuItem>Logout</DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </li>
           </ul>
 

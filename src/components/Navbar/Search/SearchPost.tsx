@@ -32,8 +32,8 @@ const SearchPost = () => {
 
             <AlertDialogDescription>
               <Input placeholder="search your post by post / author / category"></Input>
-              <ScrollArea className="h-[65vh] w-full rounded-md border p-4">
-                <div className="flex flex-col justify-center items-center">
+              <ScrollArea className="h-[65vh] w-full rounded-md border p-4 mt-5">
+                <div className="grid grid-cols-1 lg:grid-cols-2 place-items-center">
                   <BlogsCard />
                   <BlogsCard />
                   <BlogsCard />

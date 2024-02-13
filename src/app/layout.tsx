@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
-import "./globals.css";
+import "../styles/globals.css";
 import { cn, scrollToTop } from "@/lib/utils";
 import Navbar from "@/components/Navbar/Navbar";
 import { ThemeProvider } from "@/components/Providers/ThemeProvider";
-import { ArrowUpToLine } from "lucide-react";
 import ScrollToTop from "@/components/ScrollToTop/ScrollToTop";
 import Footer from "@/components/Footer/Footer";
-import NewsLatter from "@/components/NewsLatter/NewsLatter";
+import "rsuite/dist/rsuite-no-reset.min.css";
+import { CustomProvider } from "rsuite";
 
 export const fontSans = FontSans({
   subsets: ["cyrillic"],
@@ -32,20 +32,19 @@ export default function RootLayout({
         enableSystem
         disableTransitionOnChange
       >
-        <Navbar />
         <body
           className={cn(
             "min-h-screen bg-background font-sans antialiased",
             fontSans.variable
           )}
         >
-          {children}
+          <Navbar />
+          <CustomProvider>{children}</CustomProvider>
+          <Footer />
         </body>
         <div className="fixed bg-black text-white bottom-0 right-2 lg:bottom-5 lg:right-5 p-4 lg:p-2 lg:hover:bg-black lg:hover:text-white border-black border rounded-full">
           <ScrollToTop />
         </div>
-
-        <Footer />
       </ThemeProvider>
     </html>
   );
