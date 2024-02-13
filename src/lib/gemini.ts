@@ -4,8 +4,8 @@ const {
   HarmBlockThreshold,
 } = require("@google/generative-ai");
 
-const MODEL_NAME = process.env.GEMINI_MODEL;
-const API_KEY = process.env.GEMINI_KEY;
+const MODEL_NAME = "gemini-pro";
+const API_KEY = "AIzaSyAn0isoCjbvezgXxdX-UEuooiiwa4Le-ew";
 
 export async function runChat(userInput: string) {
   const genAI = new GoogleGenerativeAI(API_KEY);

@@ -65,6 +65,7 @@ const WritePost = () => {
       console.log(error);
     }
   };
+  
   const addSectionComponent = () => {
     setComponents([
       ...components,
@@ -143,13 +144,15 @@ const WritePost = () => {
                 </Button>
               </div>
             ))}
-            <div className="flex gap-2 pt-5">
+            <div className="flex flex-wrap gap-2 pt-5">
               <Button type="button" onClick={addSectionComponent}>
                 Section
               </Button>
               <Button>Code(coming soon)</Button>
               <Button>Image(coming soon)</Button>
-              <Button type="submit">Submit</Button>
+              <Button className={cn("bg-green-500")} type="submit">
+                Submit
+              </Button>
             </div>
           </div>
         </ScrollArea>
