@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/components/Providers/ThemeProvider";
 import ScrollToTop from "@/components/ScrollToTop/ScrollToTop";
 import Footer from "@/components/Footer/Footer";
 import "rsuite/dist/rsuite-no-reset.min.css";
+import NextTopLoader from "nextjs-toploader";
 import { CustomProvider } from "rsuite";
 
 export const fontSans = FontSans({
@@ -39,12 +40,24 @@ export default function RootLayout({
           )}
         >
           <Navbar />
+          <NextTopLoader
+            color="#000000"
+            initialPosition={0.08}
+            crawlSpeed={200}
+            height={3}
+            crawl={true}
+            showSpinner={true}
+            easing="ease"
+            speed={200}
+            shadow="0 0 10px #2299DD,0 0 5px #2299DD"
+            template='<div class="bar" role="bar"><div class="peg"></div></div> 
+  <div class="spinner" role="spinner"><div class="spinner-icon"></div></div>'
+            zIndex={1600}
+            showAtBottom={false}
+          />
           <CustomProvider>{children}</CustomProvider>
           <Footer />
         </body>
-        <div className="fixed bg-black text-white bottom-0 right-2 lg:bottom-5 lg:right-5 p-4 lg:p-2 lg:hover:bg-black lg:hover:text-white border-black border rounded-full">
-          <ScrollToTop />
-        </div>
       </ThemeProvider>
     </html>
   );

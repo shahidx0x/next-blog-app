@@ -10,73 +10,11 @@ import { Uploader } from "rsuite";
 import "react-chat-elements/dist/main.css";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { MessageList, Input as ChatInput } from "react-chat-elements";
-const {
-  GoogleGenerativeAI,
-  HarmCategory,
-  HarmBlockThreshold,
-} = require("@google/generative-ai");
-
-const MODEL_NAME = "gemini-pro";
-const API_KEY = "AIzaSyAn0isoCjbvezgXxdX-UEuooiiwa4Le-ew";
-
-async function runChat(userInput: string) {
-  const genAI = new GoogleGenerativeAI(API_KEY);
-  const model = genAI.getGenerativeModel({ model: MODEL_NAME });
-
-  const generationConfig = {
-    temperature: 0.9,
-    topK: 1,
-    topP: 1,
-    maxOutputTokens: 2048,
-  };
-
-  const safetySettings = [
-    {
-      category: HarmCategory.HARM_CATEGORY_HARASSMENT,
-      threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-    },
-    {
-      category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
-      threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-    },
-    {
-      category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
-      threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-    },
-    {
-      category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
-      threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-    },
-  ];
-
-  const chat = model.startChat({
-    generationConfig,
-    safetySettings,
-    history: [
-      {
-        role: "user",
-        parts: [{ text: "hello" }],
-      },
-      {
-        role: "model",
-        parts: [
-          {
-            text: "Hello! How are you doing today? Is there anything I can help you with?",
-          },
-        ],
-      },
-    ],
-  });
-
-  const result = await chat.sendMessage(userInput);
-  const response = result.response;
-  return response.text();
-}
-
-// runChat();
+import { useForm, SubmitHandler } from "react-hook-form";
+import { runChat } from "@/lib/gemini";
 
 const WritePost = () => {
-  const [chatDataSource, setChatDataSource] = useState([
+  const [chatDataSource, setChatDataSource] = useState<any>([
     {
       position: "left",
       type: "text",
@@ -89,8 +27,16 @@ const WritePost = () => {
   const [components, setComponents] = useState<any>([]);
   const [responseLoading, setResponseLoading] = useState<boolean>(true);
   const [errors, setErrors] = useState<any>();
+  const {
+    register,
+    handleSubmit,
+    unregister,
+    formState: {},
+  } = useForm();
+  const onSubmit = (data: any) => console.log(data);
+
   const chatHandler = async () => {
-    setChatDataSource((prev) => [
+    setChatDataSource((prev: any) => [
       ...prev,
       {
         position: "right",
@@ -104,7 +50,7 @@ const WritePost = () => {
       const giminiResponse = await runChat(inputCatcher as any);
       if (giminiResponse) {
         setResponseLoading(true);
-        setChatDataSource((prev) => [
+        setChatDataSource((prev: any) => [
           ...prev,
           {
             position: "left",
@@ -126,11 +72,13 @@ const WritePost = () => {
         <Input
           placeholder="Write Section Headings"
           className={cn("p-5 h-20 font-medium text-xl")}
+          {...register(`${components.length}_section_title`)}
         ></Input>
         <Textarea
           maxLength={800}
           placeholder="section paragraph"
           className={cn("mt-5 border-none h-80 focus:ring-0")}
+          {...register(`${components.length}_section_paragraph`)}
         ></Textarea>
       </div>,
     ]);
@@ -142,10 +90,14 @@ const WritePost = () => {
         (component: any, index: number) => index !== indexToRemove
       )
     );
+    const removedFieldName = `${indexToRemove}_section_title`;
+    const removedParagraphName = `${indexToRemove}_section_paragraph`;
+    unregister(removedFieldName);
+    unregister(removedParagraphName);
   };
   return (
-    <div className="max-w-[1600px] mx-auto mt-24">
-      <div className="flex">
+    <div className="max-w-[1600px] mx-auto mt-24 border h-screen">
+      <form onSubmit={handleSubmit(onSubmit)} className="flex">
         <ScrollArea className="w-full  h-[80vh] rounded-md">
           <div className=" w-full p-10">
             <Uploader
@@ -168,12 +120,14 @@ const WritePost = () => {
               <Input
                 placeholder="Title"
                 className={cn("p-5 h-20 font-medium text-xl mt-3")}
+                {...register("post_title")}
               ></Input>
 
               <Textarea
                 maxLength={800}
                 placeholder="paragraph"
                 className={cn("mt-5 border-none h-80 focus:ring-0 text-xl")}
+                {...register("post_paragraph")}
               ></Textarea>
             </div>
 
@@ -190,13 +144,16 @@ const WritePost = () => {
               </div>
             ))}
             <div className="flex gap-2 pt-5">
-              <Button onClick={addSectionComponent}>Section</Button>
+              <Button type="button" onClick={addSectionComponent}>
+                Section
+              </Button>
               <Button>Code(coming soon)</Button>
               <Button>Image(coming soon)</Button>
+              <Button type="submit">Submit</Button>
             </div>
           </div>
         </ScrollArea>
-      </div>
+      </form>
       <Button
         onClick={() => {
           setShowChat((prev) => !prev);
@@ -207,7 +164,7 @@ const WritePost = () => {
       </Button>
       {showChat && (
         <>
-          <div className="fixed bottom-28 right-7 border-2 h-[75vh]  lg:h-[80vh] w-[55vh]  lg:w-[60vh] rounded-xl bg-gray-200 ">
+          <div className="fixed bottom-28 right-7 border-2 h-[75vh]  lg:h-[80vh] w-[55vh]  lg:w-[60vh] rounded-xl bg-gray-200/30 backdrop-blur-md ">
             <h2
               className={
                 responseLoading ? "hidden" : "text-center font-medium pt-3 "
