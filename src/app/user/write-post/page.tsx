@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
-import { MessageCircle, Minus, Send } from "lucide-react";
+import { MessageCircle, Minus, Search, Send, XCircle } from "lucide-react";
 import React, { useState } from "react";
 import { Uploader } from "rsuite";
 import "react-chat-elements/dist/main.css";
@@ -12,6 +12,16 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { MessageList, Input as ChatInput } from "react-chat-elements";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { runChat } from "@/lib/gemini";
+import {
+  AlertDialog,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import BlogsCard from "@/components/Cards/BlogsCard/BlogsCard";
 
 const WritePost = () => {
   const [chatDataSource, setChatDataSource] = useState<any>([
@@ -65,7 +75,7 @@ const WritePost = () => {
       console.log(error);
     }
   };
-  
+
   const addSectionComponent = () => {
     setComponents([
       ...components,
@@ -157,34 +167,48 @@ const WritePost = () => {
           </div>
         </ScrollArea>
       </form>
-      <Button
-        onClick={() => {
-          setShowChat((prev) => !prev);
-        }}
-        className="fixed right-6 bottom-16"
-      >
-        <MessageCircle /> AI CHAT
-      </Button>
-      {showChat && (
-        <>
-          <div className="fixed bottom-28 right-7 border-2 h-[75vh]  lg:h-[80vh] w-[55vh]  lg:w-[60vh] rounded-xl bg-gray-200/30 backdrop-blur-md ">
-            <h2
-              className={
-                responseLoading ? "hidden" : "text-center font-medium pt-3 "
-              }
-            >
-              Gemini thinking. Please wait ...
-            </h2>
-            <ScrollArea className="h-[60vh] lg:h-[70vh] p-5">
+      <AlertDialog>
+        <AlertDialogTrigger asChild={true}>
+          <Button
+            onClick={() => {
+              setShowChat((prev) => !prev);
+            }}
+            className="fixed right-6 bottom-16 md:bottom-0"
+          >
+            <MessageCircle /> AI CHAT
+          </Button>
+        </AlertDialogTrigger>
+        <AlertDialogContent className={cn("h-full")}>
+          <AlertDialogHeader>
+            <div className="flex justify-between">
+              <AlertDialogTitle>
+                Chat with AI for blog suggestion
+              </AlertDialogTitle>
+              <AlertDialogCancel className={cn("border-none")}>
+                <XCircle />
+              </AlertDialogCancel>
+            </div>
+
+            <AlertDialogDescription>
+              <h2
+                className={
+                  responseLoading ? "hidden" : "text-center font-medium pt-3 "
+                }
+              >
+                Gemini thinking. Please wait ...
+              </h2>
+              <ScrollArea className="h-[65vh] w-full rounded-md border p-4 mt-5">
               <MessageList
-                className="your-class"
-                lockable={true}
-                toBottomHeight="100px"
-                referance={null}
-                dataSource={chatDataSource}
-              />
-            </ScrollArea>
-            <div className="pl-2 pr-2 rounded-lg">
+                      className="your-class"
+                      lockable={true}
+                      toBottomHeight="100px"
+                      referance={null}
+                      dataSource={chatDataSource}
+                    />
+              </ScrollArea>
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <div className=" border rounded-lg">
               <ChatInput
                 className="rounded-lg"
                 maxHeight={100}
@@ -198,9 +222,8 @@ const WritePost = () => {
                 onChange={(e: any) => setInputCatcher(e.target.value)}
               />
             </div>
-          </div>
-        </>
-      )}
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };

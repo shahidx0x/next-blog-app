@@ -10,7 +10,7 @@ const Authors = () => {
   return (
     <>
       <div className=" flex flex-col justify-center items-center">
-        <div className="flex flex-col lg:flex-row justify-between items-center w-full lg:w-[88rem] p-10">
+        <div className="flex flex-col lg:flex-row justify-center gap-5 md:gap-96 items-center w-full pb-10 pt-10">
           <h2 className="text-3xl font-medium">Top Authors</h2>
           <div className="flex">
             <p className="font-bold">See All Authors</p>
@@ -19,8 +19,7 @@ const Authors = () => {
             </div>
           </div>
         </div>
-        <Separator className={cn("lg:flex lg:w-[88rem]")} />
-        <div className="mt-5 flex justify-center flex-wrap gap-10">
+        <div className="flex justify-center flex-wrap gap-10 ">
           <AuthorsCard />
           <AuthorsCard />
           <AuthorsCard />

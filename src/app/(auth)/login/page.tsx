@@ -17,7 +17,7 @@ import { Separator } from "@/components/ui/separator";
 
 export default function Login() {
   return (
-    <div className="flex justify-center h-screen items-center bg-gray-200/90 backdrop-blur-md">
+    <div className="flex justify-center h-screen items-center bg-gray-200/90 backdrop-blur-md mt-16">
       <Card className={cn("w-[420px]")}>
         <CardHeader>
           <CardTitle>Login</CardTitle>

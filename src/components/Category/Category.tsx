@@ -1,21 +1,11 @@
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import BlogsCard from "../Cards/BlogsCard/BlogsCard";
 
 export default function Category() {
   return (
-    <div className="mt-[60rem] md:mt-[90rem] lg:mt-[16rem] relative">
+    <div className="mt-0 md:mt-24">
       <div className="flex gap-5 flex-col justify-center items-center">
         <h2 className="text-3xl lg:text-5xl font-bold">Browse By Category</h2>
         <p className="hidden lg:text-2xl font-bold">

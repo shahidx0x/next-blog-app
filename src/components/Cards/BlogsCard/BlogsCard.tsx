@@ -9,8 +9,8 @@ import Link from "next/link";
 const BlogsCard = () => {
   return (
     <Link href={`/blogs/1`}>
-      <Card className={cn("w-96  group")}>
-        <div className="overflow-hidden border rounded-xl h-52 group-hover:scale-105 transition-all">
+      <Card className={cn("w-96 md:w-72  group")}>
+        <div className="overflow-hidden border rounded-xl h-52 md:h-52 md:w-full group-hover:scale-105 transition-all">
           <Image className="" alt="d" src={PlaceHolder} />
         </div>
         <CardContent>

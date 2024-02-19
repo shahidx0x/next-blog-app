@@ -1,20 +1,20 @@
 import React from "react";
 import headerImage from "../../assest/image/header.jpg";
 import Image from "next/image";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
+
 const Hero = () => {
   return (
     <div>
-      <section className="bg-gray-100 text-gray-800  absolute top-12 lg:relative ">
-        <div className="container flex flex-col justify-center p-6 mx-auto sm:py-12 lg:py-24 lg:flex-row lg:justify-between">
+      <section className="bg-gray-100 text-gray-800 top-12 lg:relative ">
+        <div className="container flex flex-col justify-center p-6 mx-auto sm:py-12 lg:py-24 lg:flex-row gap-0 md:gap-36">
           <div className="flex flex-col justify-center text-center rounded-sm lg:max-w-md xl:max-w-lg lg:text-left">
             <h1 className="text-3xl lg:text-5xl font-bold">
-              Welcome to{" "}
+              Welcome to
               <span className="text-black text-4xl lg:text-7xl">
                 NEXT <span className="">Blog</span>
               </span>
             </h1>
-            <p className="mt-6 mb-8 text-lg sm:mb-12">
+            <p className="mt-6 mb-8 text-lg sm:mb-12">  
               Your Gateway to the Future of Blogging! Dive Into the Next
               Generation of Content Creation and Discovery
             </p>
@@ -36,14 +36,13 @@ const Hero = () => {
             </div>
           </div>
 
-          <div className="flex items-center justify-center mt-10 lg:mt-0  lg:w-[50vh]">
-            <AspectRatio ratio={16 / 12}>
+          <div className="mt-10 lg:mt-0 lg:w-[50vh]">
               <Image
                 src={headerImage}
                 alt="Image"
-                className="rounded-md object-cover"
+                className="rounded-md object-cover w-full"
               />
-            </AspectRatio>
+
           </div>
         </div>
       </section>
