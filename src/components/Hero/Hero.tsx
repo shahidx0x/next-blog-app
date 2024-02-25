@@ -1,6 +1,7 @@
 import React from "react";
 import headerImage from "../../assest/image/header.jpg";
 import Image from "next/image";
+import Link from "next/link";
 
 const Hero = () => {
   return (
@@ -14,35 +15,34 @@ const Hero = () => {
                 NEXT <span className="">Blog</span>
               </span>
             </h1>
-            <p className="mt-6 mb-8 text-lg sm:mb-12">  
+            <p className="mt-6 mb-8 text-lg sm:mb-12">
               Your Gateway to the Future of Blogging! Dive Into the Next
               Generation of Content Creation and Discovery
             </p>
             <div className="flex flex-col space-y-4 sm:items-center sm:justify-center sm:flex-row sm:space-y-0 sm:space-x-4 lg:justify-start">
-              <a
+              <Link
                 rel="noopener noreferrer"
-                href="#"
+                href="/login"
                 className="px-8 py-3 text-lg font-semibold rounded bg-black text-gray-50"
               >
                 Start Exploring
-              </a>
-              <a
+              </Link>
+              <Link
                 rel="noopener noreferrer"
-                href="#"
+                href="/registration"
                 className="px-8 py-3 text-lg font-semibold border rounded border-gray-800"
               >
                 Join with us
-              </a>
+              </Link>
             </div>
           </div>
 
           <div className="mt-10 lg:mt-0 lg:w-[50vh]">
-              <Image
-                src={headerImage}
-                alt="Image"
-                className="rounded-md object-cover w-full"
-              />
-
+            <Image
+              src={headerImage}
+              alt="Image"
+              className="rounded-md object-cover w-full"
+            />
           </div>
         </div>
       </section>
