@@ -25,9 +25,12 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "../ui/separator";
 import SearchPost from "./Search/SearchPost";
 import { cn } from "@/lib/utils";
+import { useSession } from "next-auth/react";
 
 const Navbar = () => {
   const pathname = usePathname();
+  const { data: session } = useSession();
+  console.log(session);
 
   return (
     <div>
@@ -63,7 +66,7 @@ const Navbar = () => {
               </>
             ))}
 
-            <li className="cursor-pointer ">
+            {/* <li className="cursor-pointer ">
               <DropdownMenu>
                 <DropdownMenuTrigger>
                   <Avatar>
@@ -82,23 +85,8 @@ const Navbar = () => {
                   <DropdownMenuItem>Logout</DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
-            </li>
+            </li> */}
           </ul>
-
-          {/* <div className="items-center flex-shrink-0 hidden lg:flex gap-5">
-            <Link
-              href={"/login"}
-              className="self-center px-8 py-3 font-semibold rounded border-2 text-gray-500"
-            >
-              Explore In
-            </Link>
-            <Link
-              href={"/registration"}
-              className="self-center px-8 py-3 font-semibold rounded bg-black text-gray-50"
-            >
-              Get Started
-            </Link>
-          </div> */}
           <div className="lg:hidden flex justify-center items-center gap-3 ">
             <SearchPost />
             <Sheet>

@@ -14,9 +14,11 @@ datasource db {
 }
 
 model User {
-  id       String @id @default(uuid())
-  name     String
-  email    String @unique
-  password String
+  id          String @id @default(uuid())
+  name        String @default("Jon Dou")
+  email       String @unique
+  password    String @unique
+  address     String @default("default address")
+  phoneNumber Int @default(01800000001)
+  about       String @default("default about")
 }
-
