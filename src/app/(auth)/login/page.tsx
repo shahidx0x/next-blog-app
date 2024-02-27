@@ -27,7 +27,7 @@ export default function Login() {
   const onSubmit = async (data: any, event: any) => {
     event.preventDefault();
     await signIn("credentials", {
-      username: data.email,
+      email: data.email,
       password: data.password,
       callbackUrl: "/",
     });
@@ -63,7 +63,7 @@ export default function Login() {
               <div className="grid w-full  items-center gap-1.5">
                 <Label htmlFor="email">Email</Label>
                 <Input
-                  type="text"
+                  type="email"
                   id="email"
                   placeholder="Email"
                   {...register("email", { required: true })}

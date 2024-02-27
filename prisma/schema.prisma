@@ -15,10 +15,11 @@ datasource db {
 
 model User {
   id          String @id @default(uuid())
+  image       String @default("https://ar-controls.co.uk/wp-content/uploads/2016/07/profile-placeholder-640x640.png")
   name        String @default("Jon Dou")
   email       String @unique
   password    String @unique
   address     String @default("default address")
-  phoneNumber Int @default(01800000001)
+  phoneNumber Int    @default(01800000001)
   about       String @default("default about")
 }

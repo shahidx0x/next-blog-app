@@ -15,7 +15,6 @@ export async function POST(req: any, res: any) {
       return createResponse("user not registered", 200, {}, {});
     }
     const isPasswordValid = await verifyPassword(password, user.password);
-    console.log(isPasswordValid);
     if (!isPasswordValid) {
       return createResponse("wrong password", 200, {}, {});
     }

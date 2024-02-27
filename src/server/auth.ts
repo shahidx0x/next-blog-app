@@ -8,13 +8,15 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async jwt({ token, account, profile }) {
+      console.log(profile, account, profile);
       if (account && account.type === "credentials") {
         token.userId = account.providerAccountId;
       }
       return token;
     },
     async session({ session, token, user }) {
-      session.user.id = token.userId;
+      console.log(session, user);
+      session.user.id = "1234";
       return session;
     },
   },
@@ -25,16 +27,26 @@ export const authOptions: NextAuthOptions = {
     Credentials({
       name: "Credentials",
       credentials: {
-        username: { label: "Username", type: "text", placeholder: "username" },
+        email: { label: "Email", type: "email", placeholder: "email" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials, req) {
-        const { username, password } = credentials as {
-          username: string;
+      async authorize(credentials, req): Promise<any> {
+        const { email, password } = credentials as {
+          email: string;
           password: string;
         };
+        const response = await userService.authenticate(email, password);
+        console.log(response);
 
-        return userService.authenticate(username, password);
+        let user = {
+          id: response.data.id,
+          name: response.data.username,
+          image: response.data.image,
+          email: response.data.email,
+        };
+        console.log(user);
+
+        return user;
       },
     }),
   ],

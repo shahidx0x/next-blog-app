@@ -2,16 +2,21 @@ export const userService = {
   authenticate,
 };
 
-function authenticate(username: string, password: string) {
-  if (username !== "admin" && password !== "admin") {
-    return null;
+function authenticate(email: string, password: string) {
+  let response;
+  try {
+    response = fetch("http://localhost:3000/api/login-user", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    })
+      .then((res) => res.json())
+      .catch((error) => console.log(error));
+  } catch (error) {
+    console.log(error);
   }
 
-  const user = {
-    id: "9001",
-    name: "Web Admin",
-    email: "admin@example.com",
-  };
-
-  return user;
+  return response;
 }

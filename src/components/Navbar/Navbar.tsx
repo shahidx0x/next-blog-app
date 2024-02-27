@@ -12,19 +12,8 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-
 import { Separator } from "../ui/separator";
 import SearchPost from "./Search/SearchPost";
-import { cn } from "@/lib/utils";
 import { useSession } from "next-auth/react";
 
 const Navbar = () => {
@@ -49,43 +38,22 @@ const Navbar = () => {
               <SearchPost />
             </li>
             {NavItems.map((item, index) => (
-              <>
-                <li className="flex justify-center items-center mt-2">
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className={`${
-                      pathname === item.href
-                        ? " text-black underline font-bold"
-                        : " text-gray-800"
-                    } flex items-center py-2 px-4 rounded-lg mb-2`}
-                  >
-                    <span>{item.title}</span>
-                  </Link>
-                </li>
-              </>
+              <li
+                key={item.href}
+                className="flex justify-center items-center mt-2"
+              >
+                <Link
+                  href={item.href}
+                  className={`${
+                    pathname === item.href
+                      ? " text-black underline font-bold"
+                      : " text-gray-800"
+                  } flex items-center py-2 px-4 rounded-lg mb-2`}
+                >
+                  <span>{item.title}</span>
+                </Link>
+              </li>
             ))}
-
-            {/* <li className="cursor-pointer ">
-              <DropdownMenu>
-                <DropdownMenuTrigger>
-                  <Avatar>
-                    <AvatarImage src="https://github.com/shadcn.png" />
-                    <AvatarFallback>CN</AvatarFallback>
-                  </Avatar>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className={cn("mt-5")}>
-                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem>Profile</DropdownMenuItem>
-                  <Link href={`/user/write-post`}>
-                    <DropdownMenuItem>Write Something</DropdownMenuItem>
-                  </Link>
-                  <DropdownMenuItem>Settigns</DropdownMenuItem>
-                  <DropdownMenuItem>Logout</DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </li> */}
           </ul>
           <div className="lg:hidden flex justify-center items-center gap-3 ">
             <SearchPost />
@@ -120,9 +88,8 @@ const Navbar = () => {
                     <ul className=" mt-10 flex flex-col justify-center items-center">
                       {NavItems.map((item, index) => (
                         <>
-                          <li className="text-3xl font-mono">
+                          <li key={item.href} className="text-3xl font-mono">
                             <Link
-                              key={item.href}
                               href={item.href}
                               className={`${
                                 pathname === item.href
