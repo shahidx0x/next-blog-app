@@ -15,10 +15,21 @@ import {
 import { Separator } from "../ui/separator";
 import SearchPost from "./Search/SearchPost";
 import { useSession } from "next-auth/react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { cn } from "@/lib/utils";
+import { signOut } from "next-auth/react";
 
 const Navbar = () => {
   const pathname = usePathname();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   console.log(session);
 
   return (
@@ -54,6 +65,43 @@ const Navbar = () => {
                 </Link>
               </li>
             ))}
+            {status === "authenticated" ? (
+              <>
+                <li className="cursor-pointer ">
+                  <DropdownMenu>
+                    <DropdownMenuTrigger>
+                      <Avatar>
+                        <AvatarImage src={session?.user?.image as string} />
+                        <AvatarFallback className="border">CN</AvatarFallback>
+                      </Avatar>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className={cn("mt-5")}>
+                      <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem>Profile</DropdownMenuItem>
+                      <Link href={`/user/write-post`}>
+                        <DropdownMenuItem>Write Something</DropdownMenuItem>
+                      </Link>
+                      <DropdownMenuItem>Settigns</DropdownMenuItem>
+                      <DropdownMenuItem
+                        onClick={() => {
+                          signOut();
+                        }}
+                      >
+                        Logout
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </li>
+              </>
+            ) : (
+              <>
+                {" "}
+                <Link href={"/login"}>
+                  <li className="font-bold underline">Join with us</li>
+                </Link>
+              </>
+            )}
           </ul>
           <div className="lg:hidden flex justify-center items-center gap-3 ">
             <SearchPost />
@@ -88,8 +136,9 @@ const Navbar = () => {
                     <ul className=" mt-10 flex flex-col justify-center items-center">
                       {NavItems.map((item, index) => (
                         <>
-                          <li key={item.href} className="text-3xl font-mono">
+                          <li className="text-3xl font-mono">
                             <Link
+                              key={item.href}
                               href={item.href}
                               className={`${
                                 pathname === item.href

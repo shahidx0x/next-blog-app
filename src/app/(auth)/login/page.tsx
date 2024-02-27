@@ -1,17 +1,16 @@
 "use client";
-import { BellRing, Check, Mail } from "lucide-react";
+import { Mail } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { FaDiscord, FaGoogle } from "react-icons/fa";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -19,6 +18,7 @@ import { Separator } from "@/components/ui/separator";
 import { useForm } from "react-hook-form";
 
 export default function Login() {
+  const { data, status } = useSession();
   const {
     register,
     handleSubmit,
@@ -32,7 +32,17 @@ export default function Login() {
       callbackUrl: "/",
     });
   };
-  console.log(errors);
+  const handleGoogle = () => {
+    signIn("google", {
+      callbackUrl: "/",
+    });
+  };
+  const handleDiscord = () => {
+    signIn("discord", {
+      callbackUrl: "/",
+    });
+  };
+
   return (
     <div className="h-[50rem] w-full dark:bg-black bg-white  dark:bg-grid-white/[0.2] bg-grid-black/[0.2] relative flex items-center justify-center">
       <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
@@ -48,12 +58,14 @@ export default function Login() {
           <CardContent className="grid gap-4">
             <div className=" flex flex-col gap-5">
               <Button
+                onClick={() => handleGoogle()}
                 variant={"outline"}
                 className={cn("w-full p-6 hover:bg-black hover:text-white")}
               >
                 <FaGoogle className="mr-2 h-5 w-5" /> Login with Google
               </Button>
               <Button
+                onClick={() => handleDiscord()}
                 variant={"outline"}
                 className={cn("w-full p-6 hover:bg-black hover:text-white")}
               >

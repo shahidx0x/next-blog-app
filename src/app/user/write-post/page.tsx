@@ -22,14 +22,16 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import BlogsCard from "@/components/Cards/BlogsCard/BlogsCard";
+import { useSession } from "next-auth/react";
 
 const WritePost = () => {
+  const { data: session } = useSession();
   const [chatDataSource, setChatDataSource] = useState<any>([
     {
       position: "left",
       type: "text",
       title: "Gemini AI",
-      text: "Hello Shahid i can help you with your blogs",
+      text: `Hello ${session?.user.name} i can help you with your blogs`,
     },
   ]);
   const [inputCatcher, setInputCatcher] = useState();
@@ -198,30 +200,30 @@ const WritePost = () => {
                 Gemini thinking. Please wait ...
               </h2>
               <ScrollArea className="h-[65vh] w-full rounded-md border p-4 mt-5">
-              <MessageList
-                      className="your-class"
-                      lockable={true}
-                      toBottomHeight="100px"
-                      referance={null}
-                      dataSource={chatDataSource}
-                    />
+                <MessageList
+                  className="your-class"
+                  lockable={true}
+                  toBottomHeight="100px"
+                  referance={null}
+                  dataSource={chatDataSource}
+                />
               </ScrollArea>
             </AlertDialogDescription>
           </AlertDialogHeader>
           <div className=" border rounded-lg">
-              <ChatInput
-                className="rounded-lg"
-                maxHeight={100}
-                placeholder="Type here..."
-                multiline={true}
-                rightButtons={
-                  <Button onClick={() => chatHandler()}>
-                    <Send />
-                  </Button>
-                }
-                onChange={(e: any) => setInputCatcher(e.target.value)}
-              />
-            </div>
+            <ChatInput
+              className="rounded-lg"
+              maxHeight={100}
+              placeholder="Type here..."
+              multiline={true}
+              rightButtons={
+                <Button onClick={() => chatHandler()}>
+                  <Send />
+                </Button>
+              }
+              onChange={(e: any) => setInputCatcher(e.target.value)}
+            />
+          </div>
         </AlertDialogContent>
       </AlertDialog>
     </div>

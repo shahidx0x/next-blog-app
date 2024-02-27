@@ -1,6 +1,7 @@
 import { getServerSession, type NextAuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { userService } from "./services/userService";
+import GoogleProvider from "next-auth/providers/google";
 
 export const authOptions: NextAuthOptions = {
   session: {
@@ -16,7 +17,7 @@ export const authOptions: NextAuthOptions = {
     },
     async session({ session, token, user }) {
       console.log(session, user);
-      session.user.id = "1234";
+      //   session.user.id = "1234";
       return session;
     },
   },
@@ -39,15 +40,19 @@ export const authOptions: NextAuthOptions = {
         console.log(response);
 
         let user = {
-          id: response.data.id,
-          name: response.data.username,
-          image: response.data.image,
-          email: response.data.email,
+          id: response.data.user.id,
+          name: response.data.user.name,
+          image: response.data.user.image,
+          email: response.data.user.email,
         };
         console.log(user);
 
         return user;
       },
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     }),
   ],
 };
