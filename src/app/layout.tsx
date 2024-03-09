@@ -8,7 +8,7 @@ import Footer from "@/components/Footer/Footer";
 import "rsuite/dist/rsuite-no-reset.min.css";
 import NextTopLoader from "nextjs-toploader";
 import { CustomProvider } from "rsuite";
-import { getServerAuthSession } from "@/server/auth";
+import { getServerAuthSession } from "../../auth";
 import SessionProvider from "../components/Providers/SessionProvider";
 
 export const fontSans = FontSans({

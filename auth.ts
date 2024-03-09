@@ -1,9 +1,11 @@
 import { getServerSession, type NextAuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import { userService } from "./services/userService";
+import { userService } from "./src/server/services/userService";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import GoogleProvider from "next-auth/providers/google";
-
+import prisma from "./db";
 export const authOptions: NextAuthOptions = {
+  adapter: PrismaAdapter(prisma),
   session: {
     strategy: "jwt",
   },
@@ -16,8 +18,6 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
     async session({ session, token, user }) {
-      console.log(session, user);
-      //   session.user.id = "1234";
       return session;
     },
   },
@@ -37,22 +37,25 @@ export const authOptions: NextAuthOptions = {
           password: string;
         };
         const response = await userService.authenticate(email, password);
-        console.log(response);
-
         let user = {
           id: response.data.user.id,
           name: response.data.user.name,
           image: response.data.user.image,
           email: response.data.user.email,
         };
-        console.log(user);
-
         return user;
       },
     }),
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+      authorization: {
+        params: {
+          prompt: "consent",
+          access_type: "offline",
+          response_type: "code",
+        },
+      },
     }),
   ],
 };
