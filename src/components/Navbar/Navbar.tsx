@@ -136,9 +136,8 @@ const Navbar = () => {
                     <ul className=" mt-10 flex flex-col justify-center items-center">
                       {NavItems.map((item, index) => (
                         <>
-                          <li className="text-3xl font-mono">
+                          <li key={item.href} className="text-3xl font-mono">
                             <Link
-                              key={item.href}
                               href={item.href}
                               className={`${
                                 pathname === item.href
