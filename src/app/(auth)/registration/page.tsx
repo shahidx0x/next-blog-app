@@ -1,10 +1,9 @@
 "use client";
-import { BellRing, Check, Mail } from "lucide-react";
+import { Mail } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { FaDiscord, FaGoogle } from "react-icons/fa";
 
 import {
   Card,
@@ -17,6 +16,8 @@ import {
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
+import toast, { Toaster } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export default function Registration() {
   const {
@@ -26,13 +27,41 @@ export default function Registration() {
     formState: { errors },
   } = useForm();
 
+  const router = useRouter();
+
   const onSubmit = async (data: any, event: any) => {
     event.preventDefault();
-    console.log(data);
+    const { email, password } = data;
+    toast.promise(
+      fetch(`/api/create-user`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      }),
+      {
+        loading: "Please wait...",
+        success: (data) => {
+          if (data.status === 409) throw new Error("User already exist");
+          setTimeout(() => {
+            router.push("/login");
+          }, 2000);
+          return "Registration Sucessfull please Login";
+        },
+        error: (error) => <b>Registration Failed : {error.message}</b>,
+      },
+      {
+        success: {
+          duration: 4000,
+        },
+      }
+    );
   };
   return (
     <>
       <div className="relative">
+        <Toaster position="top-center" reverseOrder={false} />
         <img
           src="https://images.pexels.com/photos/3747463/pexels-photo-3747463.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
           className="absolute inset-0 object-cover w-full h-full"

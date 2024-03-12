@@ -1,11 +1,12 @@
 export const userService = {
   authenticate,
+  createUser,
 };
 
 function authenticate(email: string, password: string) {
   let response;
   try {
-    response = fetch(`${process.env.SERVER_URL}/api/login-user`, {
+    response = fetch(`/api/login-user`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -24,7 +25,7 @@ function authenticate(email: string, password: string) {
 function createUser(email: string, password: string) {
   let response;
   try {
-    response = fetch(`${process.env.SERVER_URL}/api/create-user`, {
+    response = fetch(`/api/create-user`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

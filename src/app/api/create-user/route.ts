@@ -1,4 +1,3 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../../../db";
 import createResponse from "@/app/utils/createResponse";
 import hashPassword from "@/app/utils/hashPassword";
@@ -8,7 +7,16 @@ export async function POST(req: any, res: any) {
     if (req.method !== "POST") {
       return createResponse("method not allowed", 401, {}, {});
     }
+
     const { email, password, name } = await req.json();
+    const isExist = await prisma.user.findUnique({
+      where: { email: email },
+    });
+
+    if (isExist) {
+      return createResponse("User Already Registerd", 409, {}, {});
+    }
+
     const hashedPassword = await hashPassword(password);
     const user = await prisma.user.create({
       data: {
