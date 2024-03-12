@@ -5,10 +5,11 @@ import Link from "next/link";
 
 const Hero = () => {
   return (
-    <div>
+    <div className="">
       <section className="bg-gray-100 text-gray-800 top-12 lg:relative ">
         <div className="h-[50rem] w-full dark:bg-black bg-white  dark:bg-grid-small-white/[0.2] bg-grid-small-black/[0.2] relative flex items-center justify-center">
           <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
+
           <div className="container flex flex-col justify-center p-6 mx-auto sm:py-12 lg:py-24 lg:flex-row gap-0 md:gap-36">
             <div className="flex flex-col justify-center text-center rounded-sm lg:max-w-md xl:max-w-lg lg:text-left">
               <h1 className="text-3xl lg:text-5xl font-bold">

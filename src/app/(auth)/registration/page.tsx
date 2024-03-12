@@ -1,3 +1,4 @@
+"use client";
 import { BellRing, Check, Mail } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -15,8 +16,20 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
+import { useForm } from "react-hook-form";
 
 export default function Registration() {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = async (data: any, event: any) => {
+    event.preventDefault();
+    console.log(data);
+  };
   return (
     <>
       <div className="relative">
@@ -51,7 +64,10 @@ export default function Registration() {
                   </svg>
                 </a>
               </div>
-              <div className="flex items-center ">
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="flex items-center "
+              >
                 <Card className={cn("w-[25rem] rounded-md")}>
                   <CardHeader>
                     <CardTitle>Registration</CardTitle>
@@ -64,7 +80,12 @@ export default function Registration() {
                       <Separator />
                       <div className="grid w-full  items-center gap-1.5">
                         <Label htmlFor="email">Email</Label>
-                        <Input type="email" id="email" placeholder="Email" />
+                        <Input
+                          type="email"
+                          id="email"
+                          placeholder="Email"
+                          {...register("email", { required: true })}
+                        />
                       </div>
                       <div className="grid w-full  items-center gap-1.5">
                         <Label htmlFor="password">Password</Label>
@@ -72,6 +93,7 @@ export default function Registration() {
                           type="password"
                           id="password"
                           placeholder="Password"
+                          {...register("password", { required: true })}
                         />
                       </div>
                       <div className="grid w-full  items-center gap-1.5">
@@ -79,13 +101,26 @@ export default function Registration() {
                           Confirm Password
                         </Label>
                         <Input
-                          type="confirm-password"
+                          type="password"
                           id="confirm-password"
                           placeholder="Confirm Password"
+                          {...register("confirmPassword", {
+                            required: true,
+                            validate: (val: string) => {
+                              if (watch("password") != val) {
+                                return "Password doesn't match";
+                              }
+                            },
+                          })}
                         />
                       </div>
+                      {errors.confirmPassword?.message && (
+                        <p className="text-red-500">
+                          {errors.confirmPassword?.message.toString()}
+                        </p>
+                      )}
                     </div>
-                    <Button className={cn("w-full p-6")}>
+                    <Button type="submit" className={cn("w-full p-6")}>
                       <Mail className="mr-2 h-4 w-4" /> Registration with Email
                     </Button>
                   </CardContent>
@@ -100,7 +135,7 @@ export default function Registration() {
                     </p>
                   </CardFooter>
                 </Card>
-              </div>
+              </form>
             </div>
           </div>
         </div>
