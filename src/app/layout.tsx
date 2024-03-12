@@ -11,7 +11,7 @@ import { CustomProvider } from "rsuite";
 import { getServerAuthSession } from "../../auth";
 import SessionProvider from "../components/Providers/SessionProvider";
 
-export const fontSans = FontSans({
+const fontSans = FontSans({
   subsets: ["cyrillic"],
   variable: "--font-sans",
 });
@@ -56,6 +56,7 @@ export default async function RootLayout({
               zIndex={1600}
               showAtBottom={false}
             />
+
             <CustomProvider>{children}</CustomProvider>
             <Footer />
           </body>

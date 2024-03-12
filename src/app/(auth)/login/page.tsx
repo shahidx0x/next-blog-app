@@ -3,9 +3,10 @@ import { Mail } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
 import { FaDiscord, FaGoogle } from "react-icons/fa";
 import { signIn, useSession } from "next-auth/react";
+import { Button } from "@/components/ui/button";
+import { Toaster, toast } from "react-hot-toast";
 
 import {
   Card,
@@ -26,10 +27,11 @@ export default function Login() {
   } = useForm();
   const onSubmit = async (data: any, event: any) => {
     event.preventDefault();
-    await signIn("credentials", {
-      email: data.email,
-      password: data.password,
-      callbackUrl: "/",
+
+    toast.promise(signIn("credentials", { ...data, redirect: false }), {
+      loading: "Saving...",
+      success: <b>Settings saved!</b>,
+      error: <b>Could not save.</b>,
     });
   };
   const handleGoogle = () => {
@@ -45,6 +47,7 @@ export default function Login() {
 
   return (
     <div className="h-[50rem] w-full dark:bg-black bg-white  dark:bg-grid-white/[0.2] bg-grid-black/[0.2] relative flex items-center justify-center">
+      <Toaster position="bottom-left" reverseOrder={false} />
       <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
       <form
         onSubmit={handleSubmit(onSubmit)}

@@ -22,6 +22,7 @@ export const authOptions: NextAuthOptions = {
   },
   pages: {
     signIn: "/login",
+    error: "/login/error",
   },
 
   providers: [
@@ -56,6 +57,9 @@ export const authOptions: NextAuthOptions = {
           email: profile.email,
           image: profile.picture,
           role: profile.role ? profile.role : "user",
+          password: profile.password
+            ? profile.password
+            : "oath-password-less-login",
         };
       },
 

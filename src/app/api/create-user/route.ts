@@ -8,17 +8,13 @@ export async function POST(req: any, res: any) {
     if (req.method !== "POST") {
       return createResponse("method not allowed", 401, {}, {});
     }
-    const { email, password, name, address, phoneNumber, about } =
-      await req.json();
+    const { email, password, name } = await req.json();
     const hashedPassword = await hashPassword(password);
     const user = await prisma.user.create({
       data: {
         email,
         password: hashedPassword,
         name,
-        address,
-        phoneNumber,
-        about,
       },
     });
     return createResponse("user created successfully", 200, {}, { user });

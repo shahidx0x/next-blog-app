@@ -5,7 +5,7 @@ import verifyPassword from "@/app/utils/verifyPassword";
 export async function POST(req: any, res: any) {
   try {
     if (req.method !== "POST") {
-      return createResponse("method not allowed", 401, {}, {});
+      return createResponse("method not allowed", 404, {}, {});
     }
     const { email, password } = await req.json();
     const user = await prisma.user.findUnique({
@@ -14,7 +14,7 @@ export async function POST(req: any, res: any) {
     if (!user) {
       return createResponse("user not registered", 200, {}, {});
     }
-    const isPasswordValid = await verifyPassword(password, user.password);
+    const isPasswordValid = await verifyPassword(password, user?.password);
     if (!isPasswordValid) {
       return createResponse("wrong password", 200, {}, {});
     }
